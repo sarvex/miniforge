@@ -5,9 +5,7 @@ import requests
 from packaging import version
 
 def get_most_recent_version(name):
-    request = requests.get(
-        "https://api.anaconda.org/package/conda-forge/" + name
-    )
+    request = requests.get(f"https://api.anaconda.org/package/conda-forge/{name}")
     request.raise_for_status()
 
     pkg = max(

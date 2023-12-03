@@ -34,13 +34,12 @@ def get_releases():
                 continue
             if release["tag_name"] not in name:
                 continue
-            if release["tag_name"] in asset["name"]:
-                asset["_variant"], os_plat = asset["name"].split(
-                    f"""-{release["tag_name"]}-"""
-                )
-                asset["_os"], asset["_arch"] = os_plat.split(".")[0].split("-")
-            else:
+            if release["tag_name"] not in asset["name"]:
                 raise ValueError(f"Couldn't variant for {name}")
+            asset["_variant"], os_plat = asset["name"].split(
+                f"""-{release["tag_name"]}-"""
+            )
+            asset["_os"], asset["_arch"] = os_plat.split(".")[0].split("-")
             asset["_sha256"] = s.get(
                 f"""{asset["browser_download_url"]}.sha256"""
             ).text.split(" ")[0]
